@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { Coffee, Utensils } from 'lucide-react'
 import { View } from '../App'
 
 interface CategoryCardsProps {
