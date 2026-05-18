@@ -39,7 +39,7 @@ export const lunchItems: MenuItem[] = [
 
 const allItems = [...breakfastItems, ...lunchItems]
 
-export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigate }: MenuPageProps) {
+export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigate: _onNavigate }: MenuPageProps) {
   const [searchTerm, setSearchTerm] = useState('')
   const [activeTab, setActiveTab] = useState<'all' | 'breakfast' | 'lunch'>(
     type === 'meals' ? 'all' : type

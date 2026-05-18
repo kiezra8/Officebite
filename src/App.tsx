@@ -28,10 +28,6 @@ function App() {
     })
   }
 
-  const clearCart = () => {
-    setCart({})
-  }
-
   // Calculate cart counts for badges in the navigation bars
   const totalCartCount = Object.values(cart).reduce((sum, qty) => sum + qty, 0)
 

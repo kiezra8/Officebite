@@ -15,7 +15,7 @@ interface AccountPageProps {
   onNavigate: (view: 'home' | 'breakfast' | 'lunch' | 'meals' | 'account') => void
 }
 
-export default function AccountPage({ onNavigate }: AccountPageProps) {
+export default function AccountPage({ onNavigate: _onNavigate }: AccountPageProps) {
   const [profile, setProfile] = useState<UserProfile>({
     name: '',
     phone: '',

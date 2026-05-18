@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { UtensilsCrossed, ChevronDown, User, Home, Coffee, Utensils, Menu } from 'lucide-react'
+import { UtensilsCrossed, ChevronDown, User, Coffee, Utensils } from 'lucide-react'
 
 interface HeaderProps {
   currentView: 'home' | 'breakfast' | 'lunch' | 'meals' | 'account'
