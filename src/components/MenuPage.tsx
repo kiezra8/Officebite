@@ -129,13 +129,13 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
   return (
     <div style={{
       minHeight: '100vh',
-      padding: '40px 20px',
+      padding: '0 0 180px',          /* huge bottom gap so last items and buttons aren't hidden behind the floating bars */
       position: 'relative',
-      backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.92)), url(${getBackgroundUrl()})`,
+      background: '#0d1117',
+      backgroundImage: `linear-gradient(rgba(13,17,23,0.88), rgba(13,17,23,0.94)), url(${getBackgroundUrl()})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      backgroundAttachment: 'fixed',
-      transition: 'background-image 0.5s ease-in-out'
+      backgroundAttachment: 'fixed'
     }}>
       {/* We animate only the inner content so the screen background never blinks black */}
       <motion.div
@@ -373,46 +373,83 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
                   </span>
                 </div>
 
-                {/* Quantity controls */}
+                {/* Quantity controls & Add to Order button */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '10px' }}>
-                  {cart[item.id] > 0 && (
-                    <>
+                  {(!cart[item.id] || cart[item.id] === 0) ? (
+                    <button
+                      onClick={() => updateQuantity(item.id, 1)}
+                      style={{
+                        background: 'linear-gradient(135deg, var(--primary), #ff8a65)',
+                        color: 'white',
+                        padding: '8px 16px',
+                        borderRadius: '12px',
+                        fontWeight: '800',
+                        fontSize: '0.85rem',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        boxShadow: '0 4px 15px rgba(255,94,58,0.4)',
+                        transition: 'transform 0.2s, filter 0.2s'
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.filter = 'brightness(1.1)'}
+                      onMouseLeave={e => e.currentTarget.style.filter = 'brightness(1)'}
+                      onMouseDown={e => e.currentTarget.style.transform = 'scale(0.95)'}
+                      onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
+                    >
+                      <Plus size={16} /> Add to Order
+                    </button>
+                  ) : (
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      background: 'rgba(255,255,255,0.1)',
+                      backdropFilter: 'blur(8px)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      borderRadius: '12px',
+                      padding: '4px'
+                    }}>
                       <button
                         onClick={() => updateQuantity(item.id, -1)}
                         style={{
-                          background: 'rgba(255,255,255,0.2)',
-                          backdropFilter: 'blur(4px)',
-                          border: '1px solid rgba(255,255,255,0.3)',
-                          padding: '5px',
+                          background: 'rgba(0,0,0,0.2)',
+                          padding: '6px',
                           borderRadius: '8px',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          color: 'white'
+                          color: 'white',
+                          transition: 'background 0.2s'
                         }}
+                        onMouseEnter={e => e.currentTarget.style.background = 'rgba(0,0,0,0.4)'}
+                        onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,0.2)'}
                       >
                         <Minus size={14} />
                       </button>
-                      <span style={{ fontWeight: '800', fontSize: '0.95rem', color: 'white', minWidth: '18px', textAlign: 'center' }}>
+                      <span style={{ fontWeight: '900', fontSize: '1rem', color: 'white', minWidth: '32px', textAlign: 'center' }}>
                         {cart[item.id]}
                       </span>
-                    </>
+                      <button
+                        onClick={() => updateQuantity(item.id, 1)}
+                        style={{
+                          background: 'var(--primary)',
+                          color: 'white',
+                          padding: '6px',
+                          borderRadius: '8px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 2px 8px rgba(255,94,58,0.4)',
+                          transition: 'filter 0.2s'
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.filter = 'brightness(1.1)'}
+                        onMouseLeave={e => e.currentTarget.style.filter = 'brightness(1)'}
+                      >
+                        <Plus size={14} />
+                      </button>
+                    </div>
                   )}
-                  <button
-                    onClick={() => updateQuantity(item.id, 1)}
-                    style={{
-                      background: 'var(--primary)',
-                      color: 'white',
-                      padding: '5px',
-                      borderRadius: '8px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: '0 3px 10px rgba(255,94,58,0.35)'
-                    }}
-                  >
-                    <Plus size={14} />
-                  </button>
                 </div>
               </div>
             </motion.div>
@@ -430,7 +467,7 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
               transition={{ type: 'spring', damping: 22, stiffness: 210 }}
               style={{
                 position: 'fixed',
-                bottom: '20px',
+                bottom: '88px', // raised above the 68px mobile bottom nav
                 left: '16px',
                 right: '16px',
                 maxWidth: '580px',
@@ -470,54 +507,65 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
               </div>
 
               {/* Two direct action buttons side by side */}
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: 'flex', padding: '8px', background: 'rgba(15, 23, 42, 0.97)', gap: '8px' }}>
                 <button
                   onClick={handleWhatsAppOrder}
                   style={{
                     flex: 1,
-                    background: '#25D366',
+                    background: 'linear-gradient(135deg, #25D366, #128C7E)',
                     color: 'white',
-                    padding: '15px 10px',
+                    padding: '16px 10px',
+                    borderRadius: '16px',
                     fontWeight: '800',
-                    fontSize: '0.92rem',
+                    fontSize: '0.95rem',
                     display: 'flex',
+                    flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '7px',
-                    border: 'none',
+                    gap: '4px',
+                    border: '1px solid rgba(255,255,255,0.1)',
                     cursor: 'pointer',
-                    transition: 'filter 0.2s ease'
+                    boxShadow: '0 8px 20px rgba(37, 211, 102, 0.25)',
+                    transition: 'transform 0.2s, filter 0.2s'
                   }}
-                  onMouseEnter={e => (e.currentTarget.style.filter = 'brightness(1.1)')}
-                  onMouseLeave={e => (e.currentTarget.style.filter = 'brightness(1)')}
+                  onMouseEnter={e => e.currentTarget.style.filter = 'brightness(1.1)'}
+                  onMouseLeave={e => e.currentTarget.style.filter = 'brightness(1)'}
+                  onMouseDown={e => e.currentTarget.style.transform = 'scale(0.97)'}
+                  onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
                 >
-                  <MessageSquare size={17} />
-                  Order on WhatsApp
+                  <MessageSquare size={20} style={{ marginBottom: '2px' }} />
+                  <span>Order the Meal</span>
+                  <span style={{ fontSize: '0.65rem', opacity: 0.8, fontWeight: '600', textTransform: 'uppercase' }}>(via WhatsApp)</span>
                 </button>
 
                 <button
                   onClick={handleCallOrder}
                   style={{
                     flex: 1,
-                    background: '#1e293b',
+                    background: 'linear-gradient(135deg, #1e293b, #0f172a)',
                     color: 'white',
-                    padding: '15px 10px',
+                    padding: '16px 10px',
+                    borderRadius: '16px',
                     fontWeight: '800',
-                    fontSize: '0.92rem',
+                    fontSize: '0.95rem',
                     display: 'flex',
+                    flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '7px',
-                    border: 'none',
-                    borderLeft: '1px solid rgba(255,255,255,0.07)',
+                    gap: '4px',
+                    border: '1px solid rgba(255,255,255,0.1)',
                     cursor: 'pointer',
-                    transition: 'filter 0.2s ease'
+                    boxShadow: '0 8px 20px rgba(0,0,0,0.4)',
+                    transition: 'transform 0.2s, filter 0.2s'
                   }}
-                  onMouseEnter={e => (e.currentTarget.style.filter = 'brightness(1.3)')}
-                  onMouseLeave={e => (e.currentTarget.style.filter = 'brightness(1)')}
+                  onMouseEnter={e => e.currentTarget.style.filter = 'brightness(1.3)'}
+                  onMouseLeave={e => e.currentTarget.style.filter = 'brightness(1)'}
+                  onMouseDown={e => e.currentTarget.style.transform = 'scale(0.97)'}
+                  onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
                 >
-                  <PhoneCall size={17} />
-                  Call to Order
+                  <PhoneCall size={20} style={{ marginBottom: '2px' }} />
+                  <span>Order the Meal</span>
+                  <span style={{ fontSize: '0.65rem', opacity: 0.6, fontWeight: '600', textTransform: 'uppercase' }}>(Direct Call)</span>
                 </button>
               </div>
             </motion.div>

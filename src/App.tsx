@@ -38,7 +38,7 @@ function App() {
       <Header currentView={currentView} onNavigate={handleNavigate} />
       
       {/* Main content body with smooth conditional rendering */}
-      <main style={{ flex: 1, background: '#f8fafc', position: 'relative' }}>
+      <main style={{ flex: 1, background: '#0d1117', position: 'relative' }}>
         <AnimatePresence>
           {currentView === 'home' && (
             <div key="home">
@@ -95,7 +95,7 @@ function App() {
         textAlign: 'center', 
         opacity: 0.5, 
         fontSize: '0.85rem',
-        borderTop: '1px solid rgba(0,0,0,0.03)' 
+        borderTop: '1px solid rgba(255,255,255,0.06)' 
       }}>
         <p>&copy; 2026 Officebite Kampala. All rights reserved.</p>
         <p style={{ marginTop: '4px', fontSize: '0.75rem' }}>Kampala's premier corridor & shop food delivery network.</p>
@@ -111,15 +111,15 @@ function App() {
           left: 0,
           right: 0,
           height: '68px',
-          background: 'rgba(255, 255, 255, 0.85)',
+          background: 'rgba(13, 17, 23, 0.85)',
           backdropFilter: 'blur(20px)',
-          borderTop: '1px solid rgba(0, 0, 0, 0.05)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.05)',
           display: 'none', // Overridden by media query in index.css
           justifyContent: 'space-around',
           alignItems: 'center',
           zIndex: 1000,
           padding: '4px 8px',
-          boxShadow: '0 -5px 25px rgba(0,0,0,0.04)'
+          boxShadow: '0 -5px 25px rgba(0,0,0,0.4)'
         }}
       >
         {/* Home Tab */}

@@ -3,23 +3,26 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: #1a1a1a;
-  background-color: #f8fafc;
+  color-scheme: dark;
+  color: #e2e8f0;
+  background-color: #0d1117;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Premium Design Tokens */
+  /* Dark-first Design Tokens */
   --primary: #ff5e3a;
   --primary-dark: #e04d2b;
   --secondary: #ffb400;
-  --accent: #1e293b;
-  --bg-light: #f1f5f9;
-  --white: #ffffff;
-  --shadow: 0 10px 30px rgba(244, 63, 94, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --accent: #f1f5f9;           /* light text on dark bg */
+  --bg-dark: #0d1117;
+  --bg-card: rgba(255,255,255,0.06);
+  --bg-light: #161b22;
+  --white: #161b22;
+  --border: rgba(255,255,255,0.08);
+  --shadow: 0 10px 40px rgba(0,0,0,0.5);
   --radius: 20px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -30,12 +33,16 @@
   padding: 0;
 }
 
-body {
+html, body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
-  background-color: #f8fafc;
-  transition: background-color 0.3s ease;
+  background-color: #0d1117;
+}
+
+/* Force every page wrapper to be dark — kills leftover white gaps */
+#root, .app, main {
+  background: #0d1117;
 }
 
 h1, h2, h3, h4 {
@@ -55,11 +62,18 @@ button {
 input, textarea {
   outline: none;
   transition: var(--transition);
+  color: #e2e8f0;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 input:focus, textarea:focus {
   border-color: var(--primary) !important;
-  box-shadow: 0 0 0 4px rgba(255, 94, 58, 0.1) !important;
+  box-shadow: 0 0 0 3px rgba(255, 94, 58, 0.18) !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(255,255,255,0.3);
 }
 
 .container {
@@ -69,63 +83,17 @@ input:focus, textarea:focus {
 }
 
 /* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: rgba(0,0,0,0.02);
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.1);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0,0,0,0.2);
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
 
-/* Responsive Navigation Utility Styles */
+/* ── Responsive Nav ── */
 @media (max-width: 767px) {
-  .desktop-nav {
-    display: none !important;
-  }
-  .mobile-bottom-nav {
-    display: flex !important;
-  }
-  main {
-    padding-bottom: 70px; /* Space for sticky mobile bar */
-  }
+  .desktop-nav { display: none !important; }
+  .mobile-bottom-nav { display: flex !important; }
+  main { padding-bottom: 68px; }
 }
-
 @media (min-width: 768px) {
-  .mobile-bottom-nav {
-    display: none !important;
-  }
-}
-
-/* Dark Mode Theme Tuning */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #f8fafc;
-    background-color: #0f172a;
-    --bg-light: #1e293b;
-    --white: #0f172a;
-    --accent: #f8fafc;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  }
-  body {
-    background-color: #0f172a;
-  }
-  header {
-    background: rgba(15, 23, 42, 0.8) !important;
-    border-bottom: 1px solid rgba(255,255,255,0.05) !important;
-  }
-  .mobile-bottom-nav {
-    background: rgba(15, 23, 42, 0.9) !important;
-    border-top: 1px solid rgba(255,255,255,0.05) !important;
-  }
-  input, textarea {
-    background: rgba(30, 41, 59, 0.8) !important;
-    color: white !important;
-    border: 1px solid rgba(255,255,255,0.05) !important;
-  }
+  .mobile-bottom-nav { display: none !important; }
 }

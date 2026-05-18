@@ -76,23 +76,24 @@ export default function AccountPage({ onNavigate: _onNavigate }: AccountPageProp
   return (
     <div style={{
       minHeight: '100vh',
-      padding: '40px 20px',
+      padding: '0 20px 40px',
       position: 'relative',
-      backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.9)), url(https://i.pinimg.com/736x/b2/86/84/b28684319e013b4b20b7d194fbbf345f.jpg)',
+      background: '#0d1117',
+      backgroundImage: 'linear-gradient(rgba(13,17,23,0.82), rgba(13,17,23,0.94)), url(https://i.pinimg.com/736x/b2/86/84/b28684319e013b4b20b7d194fbbf345f.jpg)',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundAttachment: 'fixed'
     }}>
-      <div className="container" style={{ maxWidth: '800px' }}>
+      <div className="container" style={{ maxWidth: '800px', paddingTop: '28px' }}>
         
         {/* Profile Header */}
         <div style={{
-          background: 'rgba(255, 255, 255, 0.85)',
-          backdropFilter: 'blur(12px)',
+          background: 'rgba(255,255,255,0.06)',
+          backdropFilter: 'blur(16px)',
           borderRadius: '30px',
           padding: '30px',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-          border: '1px solid rgba(255,255,255,0.4)',
+          boxShadow: '0 10px 40px rgba(0,0,0,0.4)',
+          border: '1px solid rgba(255,255,255,0.1)',
           marginBottom: '30px',
           display: 'flex',
           flexWrap: 'wrap',
@@ -126,7 +127,7 @@ export default function AccountPage({ onNavigate: _onNavigate }: AccountPageProp
           
           <div style={{
             marginLeft: 'auto',
-            background: 'rgba(0,0,0,0.03)',
+            background: 'rgba(255,255,255,0.07)',
             padding: '10px 20px',
             borderRadius: '16px',
             textAlign: 'center'
@@ -146,12 +147,12 @@ export default function AccountPage({ onNavigate: _onNavigate }: AccountPageProp
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             style={{
-              background: 'rgba(255, 255, 255, 0.85)',
-              backdropFilter: 'blur(12px)',
+              background: 'rgba(255,255,255,0.06)',
+              backdropFilter: 'blur(16px)',
               borderRadius: '28px',
               padding: '30px',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-              border: '1px solid rgba(255,255,255,0.4)',
+              boxShadow: '0 10px 40px rgba(0,0,0,0.4)',
+              border: '1px solid rgba(255,255,255,0.1)',
               height: 'fit-content'
             }}
           >
@@ -323,12 +324,12 @@ export default function AccountPage({ onNavigate: _onNavigate }: AccountPageProp
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
             style={{
-              background: 'rgba(255, 255, 255, 0.85)',
-              backdropFilter: 'blur(12px)',
+              background: 'rgba(255,255,255,0.06)',
+              backdropFilter: 'blur(16px)',
               borderRadius: '28px',
               padding: '30px',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-              border: '1px solid rgba(255,255,255,0.4)'
+              boxShadow: '0 10px 40px rgba(0,0,0,0.4)',
+              border: '1px solid rgba(255,255,255,0.1)'
             }}
           >
             <h3 style={{ fontSize: '1.3rem', marginBottom: '20px', color: 'var(--accent)', display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -341,11 +342,11 @@ export default function AccountPage({ onNavigate: _onNavigate }: AccountPageProp
                 <div 
                   key={order.id}
                   style={{
-                    background: 'white',
+                    background: 'rgba(255,255,255,0.04)',
                     padding: '16px',
                     borderRadius: '16px',
-                    border: '1px solid rgba(0,0,0,0.02)',
-                    boxShadow: '0 4px 10px rgba(0,0,0,0.02)',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    boxShadow: '0 4px 10px rgba(0,0,0,0.2)',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '8px'
