@@ -42,8 +42,8 @@ function App() {
       <Header currentView={currentView} onNavigate={handleNavigate} />
       
       {/* Main content body with smooth conditional rendering */}
-      <main style={{ flex: 1 }}>
-        <AnimatePresence mode="wait">
+      <main style={{ flex: 1, background: '#f8fafc', position: 'relative' }}>
+        <AnimatePresence>
           {currentView === 'home' && (
             <div key="home">
               <Hero />

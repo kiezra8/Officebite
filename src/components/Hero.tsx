@@ -35,24 +35,32 @@ export default function Hero() {
     return () => clearInterval(timer)
   }, [])
 
+  // Pre-load the next slide's image as a hidden layer so cross-fade is seamless
+  const prevIndex = (index - 1 + slides.length) % slides.length
+
   return (
     <section style={{
       height: '500px',
       position: 'relative',
       overflow: 'hidden',
-      background: '#000'
+      // Use the first slide's image as the always-visible base so there is
+      // never any black/dark body colour showing through during transitions.
+      backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.72)), url(${slides[prevIndex].image})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
     }}>
-      <AnimatePresence mode="wait">
+      {/* Cross-fade: incoming slide fades IN on top of the base — no gap, no black */}
+      <AnimatePresence>
         <motion.div
           key={index}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.9, ease: 'easeInOut' }}
           style={{
             position: 'absolute',
             inset: 0,
-            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7)), url(${slides[index].image})`,
+            backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.22), rgba(0,0,0,0.70)), url(${slides[index].image})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             display: 'flex',
@@ -62,45 +70,80 @@ export default function Hero() {
             padding: '0 20px'
           }}
         >
-          <div style={{ maxWidth: '800px', color: 'white' }}>
+          <div style={{ maxWidth: '820px', color: 'white' }}>
+            <motion.span
+              initial={{ y: 12, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              style={{
+                display: 'inline-block',
+                background: 'rgba(255,255,255,0.15)',
+                backdropFilter: 'blur(6px)',
+                border: '1px solid rgba(255,255,255,0.25)',
+                padding: '5px 18px',
+                borderRadius: '30px',
+                fontSize: '0.8rem',
+                fontWeight: '700',
+                letterSpacing: '2px',
+                textTransform: 'uppercase',
+                marginBottom: '18px',
+                color: 'rgba(255,255,255,0.9)'
+              }}
+            >
+              Kampala Office Delivery
+            </motion.span>
+
             <motion.h1
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              style={{ fontSize: '3.5rem', marginBottom: '16px' }}
+              transition={{ delay: 0.45 }}
+              style={{
+                fontSize: 'clamp(2rem, 5vw, 3.8rem)',
+                marginBottom: '14px',
+                fontWeight: '900',
+                lineHeight: 1.1,
+                color: 'white'
+              }}
             >
               {slides[index].title}
             </motion.h1>
+
             <motion.p
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.7 }}
-              style={{ fontSize: '1.2rem', opacity: 0.9 }}
+              transition={{ delay: 0.6 }}
+              style={{ fontSize: '1.1rem', opacity: 0.88, maxWidth: '500px', margin: '0 auto' }}
             >
               {slides[index].description}
             </motion.p>
           </div>
         </motion.div>
       </AnimatePresence>
-      
+
+      {/* Dot navigation */}
       <div style={{
         position: 'absolute',
-        bottom: '20px',
+        bottom: '24px',
         left: '50%',
         transform: 'translateX(-50%)',
         display: 'flex',
-        gap: '10px'
+        gap: '8px',
+        zIndex: 10
       }}>
         {slides.map((_, i) => (
-          <div 
+          <button
             key={i}
+            onClick={() => setIndex(i)}
             style={{
-              width: i === index ? '30px' : '10px',
-              height: '10px',
-              borderRadius: '5px',
+              width: i === index ? '28px' : '8px',
+              height: '8px',
+              borderRadius: '4px',
               background: 'white',
-              opacity: i === index ? 1 : 0.5,
-              transition: 'all 0.3s ease'
+              opacity: i === index ? 1 : 0.45,
+              transition: 'all 0.35s ease',
+              border: 'none',
+              cursor: 'pointer',
+              padding: 0
             }}
           />
         ))}

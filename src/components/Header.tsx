@@ -189,7 +189,7 @@ export default function Header({ currentView, onNavigate }: HeaderProps) {
               transition: 'var(--transition)'
             }}
           >
-            Meals (Menu)
+            All Meals
           </button>
 
           {/* ACCOUNT LINK */}

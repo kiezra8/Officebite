@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, Plus, Minus, ShoppingBag, MessageSquare, PhoneCall, X, Search, Coffee, Utensils } from 'lucide-react'
+import { ArrowLeft, Plus, Minus, ShoppingBag, MessageSquare, PhoneCall, Search, Coffee, Utensils } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { UserProfile } from './AccountPage'
 
@@ -44,7 +44,7 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
   const [activeTab, setActiveTab] = useState<'all' | 'breakfast' | 'lunch'>(
     type === 'meals' ? 'all' : type
   )
-  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
+  const [isCheckoutOpen] = useState(false) // unused, kept to avoid breaking deliveryProfile effect below
   const [deliveryProfile, setDeliveryProfile] = useState<UserProfile>({
     name: '',
     phone: '',
@@ -293,123 +293,125 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
           {filteredItems.map(item => (
             <motion.div 
               key={item.id}
-              whileHover={{ y: -6, boxShadow: '0 15px 30px rgba(0,0,0,0.08)' }}
+              whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.15)' }}
               style={{
-                background: 'rgba(255, 255, 255, 0.85)',
-                backdropFilter: 'blur(12px)',
                 borderRadius: '24px',
-                boxShadow: '0 8px 25px rgba(0,0,0,0.04)',
-                border: '1px solid rgba(255,255,255,0.4)',
-                display: 'flex',
-                flexDirection: 'column',
+                boxShadow: '0 8px 25px rgba(0,0,0,0.08)',
                 overflow: 'hidden',
+                position: 'relative',
+                aspectRatio: '3/4',
+                cursor: 'pointer',
                 transition: 'box-shadow 0.3s ease, transform 0.3s ease'
               }}
             >
-              {/* IMAGE IS THE BIGGER (Height increased to 240px) */}
+              {/* Full-bleed food image — fills the entire card */}
               <div style={{
-                height: '240px',
-                width: '100%',
+                position: 'absolute',
+                inset: 0,
                 backgroundImage: `url(${item.image})`,
                 backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                position: 'relative'
+                backgroundPosition: 'center'
+              }} />
+
+              {/* Category badge — top-right corner */}
+              <div style={{
+                position: 'absolute',
+                top: '12px',
+                left: '12px',
+                background: item.category === 'breakfast'
+                  ? 'rgba(255, 94, 58, 0.85)'
+                  : 'rgba(255, 180, 0, 0.85)',
+                backdropFilter: 'blur(6px)',
+                padding: '3px 10px',
+                borderRadius: '20px',
+                fontSize: '0.65rem',
+                fontWeight: '800',
+                color: 'white',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px'
               }}>
-                {/* Category tag badge on the image */}
-                <div style={{
-                  position: 'absolute',
-                  top: '12px',
-                  right: '12px',
-                  background: 'rgba(255, 255, 255, 0.9)',
-                  padding: '4px 10px',
-                  borderRadius: '20px',
-                  fontSize: '0.7rem',
-                  fontWeight: '800',
-                  color: 'var(--accent)',
-                  textTransform: 'uppercase',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
-                }}>
-                  {item.category}
-                </div>
+                {item.category}
               </div>
-              
-              {/* WORDS AND PRICE ARE SMALL (Paddings and fonts optimized) */}
-              <div style={{ padding: '18px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px', marginBottom: '6px' }}>
-                    <h3 style={{ 
-                      fontSize: '1.15rem', 
-                      fontWeight: '700', 
-                      color: 'var(--accent)', 
-                      lineHeight: '1.2' 
-                    }}>
-                      {item.name}
-                    </h3>
-                    
-                    {/* Compact elegant Price pill badge */}
-                    <span style={{ 
-                      fontWeight: '800', 
-                      color: 'var(--primary)', 
-                      fontSize: '0.9rem',
-                      background: 'rgba(255, 94, 58, 0.08)',
-                      padding: '4px 8px',
-                      borderRadius: '10px',
-                      whiteSpace: 'nowrap'
-                    }}>
-                      {item.price.toLocaleString()} UGX
-                    </span>
-                  </div>
-                  
-                  <p style={{ 
-                    fontSize: '0.85rem', 
-                    opacity: 0.75, 
-                    marginBottom: '16px', 
-                    lineHeight: '1.4',
-                    color: 'var(--accent)'
+
+              {/* Dark gradient overlay at the bottom — name, price & controls live here */}
+              <div style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                background: 'linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 55%, transparent 100%)',
+                padding: '40px 14px 14px'
+              }}>
+                {/* Name & Price row */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '8px', marginBottom: '10px' }}>
+                  <h3 style={{
+                    fontSize: '1rem',
+                    fontWeight: '700',
+                    color: 'white',
+                    lineHeight: '1.2',
+                    textShadow: '0 1px 4px rgba(0,0,0,0.4)'
                   }}>
-                    {item.description}
-                    {item.unit && <span style={{ display: 'block', fontWeight: '700', marginTop: '4px', color: 'var(--primary)', fontSize: '0.75rem' }}>({item.unit})</span>}
-                  </p>
+                    {item.name}
+                    {item.unit && (
+                      <span style={{ display: 'block', fontSize: '0.7rem', fontWeight: '500', opacity: 0.8, marginTop: '2px' }}>({item.unit})</span>
+                    )}
+                  </h3>
+
+                  {/* Price pill */}
+                  <span style={{
+                    fontWeight: '800',
+                    color: 'white',
+                    fontSize: '0.85rem',
+                    background: 'var(--primary)',
+                    padding: '3px 9px',
+                    borderRadius: '10px',
+                    whiteSpace: 'nowrap',
+                    boxShadow: '0 2px 8px rgba(255,94,58,0.4)',
+                    flexShrink: 0
+                  }}>
+                    {item.price.toLocaleString()} UGX
+                  </span>
                 </div>
 
-                {/* Plus / Minus Action button controls */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '12px' }}>
+                {/* Quantity controls */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '10px' }}>
                   {cart[item.id] > 0 && (
                     <>
-                      <button 
+                      <button
                         onClick={() => updateQuantity(item.id, -1)}
-                        style={{ 
-                          background: 'rgba(0,0,0,0.05)', 
-                          padding: '6px', 
-                          borderRadius: '10px',
+                        style={{
+                          background: 'rgba(255,255,255,0.2)',
+                          backdropFilter: 'blur(4px)',
+                          border: '1px solid rgba(255,255,255,0.3)',
+                          padding: '5px',
+                          borderRadius: '8px',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          transition: 'var(--transition)'
+                          color: 'white'
                         }}
                       >
-                        <Minus size={16} />
+                        <Minus size={14} />
                       </button>
-                      <span style={{ fontWeight: '800', fontSize: '1rem', minWidth: '20px', textAlign: 'center' }}>
+                      <span style={{ fontWeight: '800', fontSize: '0.95rem', color: 'white', minWidth: '18px', textAlign: 'center' }}>
                         {cart[item.id]}
                       </span>
                     </>
                   )}
-                  <button 
+                  <button
                     onClick={() => updateQuantity(item.id, 1)}
-                    style={{ 
-                      background: 'var(--primary)', 
-                      color: 'white', 
-                      padding: '6px', 
-                      borderRadius: '10px',
+                    style={{
+                      background: 'var(--primary)',
+                      color: 'white',
+                      padding: '5px',
+                      borderRadius: '8px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      boxShadow: '0 4px 12px rgba(255, 94, 58, 0.3)',
-                      transition: 'var(--transition)'
+                      boxShadow: '0 3px 10px rgba(255,94,58,0.35)'
                     }}
                   >
-                    <Plus size={16} />
+                    <Plus size={14} />
                   </button>
                 </div>
               </div>
@@ -417,244 +419,108 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
           ))}
         </div>
 
-        {/* Floating Cart bar at the bottom */}
-        {total > 0 && (
-          <motion.div
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            style={{
-              position: 'fixed',
-              bottom: '30px',
-              left: '20px',
-              right: '20px',
-              maxWidth: '550px',
-              margin: '0 auto',
-              background: 'var(--accent)',
-              color: 'white',
-              padding: '16px 24px',
-              borderRadius: '24px',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              boxShadow: '0 15px 50px rgba(0,0,0,0.4)',
-              zIndex: 99,
-              backdropFilter: 'blur(12px)',
-              border: '1px solid rgba(255,255,255,0.1)'
-            }}
-          >
-            <div>
-              <span style={{ opacity: 0.8, fontSize: '0.8rem', display: 'block', textTransform: 'uppercase', letterSpacing: '1px' }}>Order Total</span>
-              <span style={{ fontSize: '1.5rem', fontWeight: '800' }}>{total.toLocaleString()} UGX</span>
-            </div>
-            
-            <button 
-              onClick={() => setIsCheckoutOpen(true)}
+        {/* ── DIRECT ORDER BAR ── slides up when cart has items, no modal ── */}
+        <AnimatePresence>
+          {total > 0 && (
+            <motion.div
+              key="order-bar"
+              initial={{ y: 110, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 110, opacity: 0 }}
+              transition={{ type: 'spring', damping: 22, stiffness: 210 }}
               style={{
-                background: 'var(--primary)',
-                color: 'white',
-                padding: '12px 24px',
-                borderRadius: '16px',
-                fontWeight: '800',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontSize: '1rem',
-                boxShadow: '0 6px 15px rgba(255, 94, 58, 0.25)',
-                transition: 'var(--transition)'
+                position: 'fixed',
+                bottom: '20px',
+                left: '16px',
+                right: '16px',
+                maxWidth: '580px',
+                margin: '0 auto',
+                zIndex: 200,
+                borderRadius: '22px',
+                overflow: 'hidden',
+                boxShadow: '0 20px 50px rgba(0,0,0,0.28)'
               }}
             >
-              <ShoppingBag size={18} />
-              Checkout Now
-            </button>
-          </motion.div>
-        )}
-
-        {/* STATE-OF-THE-ART SLIDE-UP CHECKOUT MODAL DRAWER */}
-        <AnimatePresence>
-          {isCheckoutOpen && (
-            <div style={{
-              position: 'fixed',
-              inset: 0,
-              backgroundColor: 'rgba(0,0,0,0.6)',
-              backdropFilter: 'blur(8px)',
-              zIndex: 9999,
-              display: 'flex',
-              alignItems: 'flex-end',
-              justifyContent: 'center'
-            }}>
-              {/* Dimmed backdrop click to exit */}
-              <div 
-                style={{ position: 'absolute', inset: 0 }} 
-                onClick={() => setIsCheckoutOpen(false)}
-              />
-              
-              <motion.div
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                exit={{ y: '100%' }}
-                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  maxWidth: '500px',
-                  background: 'rgba(255, 255, 255, 0.95)',
-                  borderTopLeftRadius: '32px',
-                  borderTopRightRadius: '32px',
-                  padding: '30px 24px',
-                  boxShadow: '0 -15px 40px rgba(0,0,0,0.15)',
-                  maxHeight: '90vh',
-                  overflowY: 'auto',
-                  zIndex: 10000
-                }}
-              >
-                {/* Header of Checkout */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                  <div>
-                    <h3 style={{ fontSize: '1.5rem', fontWeight: '800', color: 'var(--accent)' }}>Checkout</h3>
-                    <p style={{ fontSize: '0.85rem', opacity: 0.6 }}>Confirm details & select ordering option</p>
-                  </div>
-                  
-                  <button 
-                    onClick={() => setIsCheckoutOpen(false)}
-                    style={{
-                      background: 'rgba(0,0,0,0.05)',
-                      padding: '8px',
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    <X size={20} />
-                  </button>
+              {/* Top summary strip */}
+              <div style={{
+                background: 'rgba(15, 23, 42, 0.97)',
+                backdropFilter: 'blur(16px)',
+                padding: '11px 20px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                borderBottom: '1px solid rgba(255,255,255,0.06)'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <ShoppingBag size={15} style={{ color: 'var(--primary)' }} />
+                  <span style={{
+                    color: 'rgba(255,255,255,0.55)',
+                    fontSize: '0.75rem',
+                    fontWeight: '700',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px'
+                  }}>
+                    {Object.values(cart).reduce((s, q) => s + q, 0)} item{Object.values(cart).reduce((s, q) => s + q, 0) !== 1 ? 's' : ''} selected
+                  </span>
                 </div>
+                <span style={{ color: 'white', fontWeight: '800', fontSize: '1.1rem' }}>
+                  {total.toLocaleString()}
+                  <span style={{ fontSize: '0.7rem', opacity: 0.6, marginLeft: '4px' }}>UGX</span>
+                </span>
+              </div>
 
-                {/* Items Summary list */}
-                <div style={{
-                  background: 'white',
-                  borderRadius: '20px',
-                  padding: '16px',
-                  border: '1px solid rgba(0,0,0,0.05)',
-                  marginBottom: '20px'
-                }}>
-                  <span style={{ fontSize: '0.8rem', opacity: 0.5, fontWeight: '700', textTransform: 'uppercase', display: 'block', marginBottom: '12px' }}>Order Items</span>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '180px', overflowY: 'auto', paddingRight: '4px' }}>
-                    {itemsInCart.map(item => (
-                      <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem' }}>
-                        <div style={{ color: 'var(--accent)' }}>
-                          <span style={{ fontWeight: '700', color: 'var(--primary)' }}>{cart[item.id]}x</span> {item.name}
-                        </div>
-                        <span style={{ fontWeight: '600' }}>{(item.price * cart[item.id]).toLocaleString()} UGX</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '14px', borderTop: '1px dashed rgba(0,0,0,0.1)', paddingTop: '12px' }}>
-                    <span style={{ fontWeight: '700', fontSize: '0.95rem' }}>Subtotal:</span>
-                    <span style={{ fontWeight: '800', fontSize: '1.2rem', color: 'var(--primary)' }}>{total.toLocaleString()} UGX</span>
-                  </div>
-                </div>
+              {/* Two direct action buttons side by side */}
+              <div style={{ display: 'flex' }}>
+                <button
+                  onClick={handleWhatsAppOrder}
+                  style={{
+                    flex: 1,
+                    background: '#25D366',
+                    color: 'white',
+                    padding: '15px 10px',
+                    fontWeight: '800',
+                    fontSize: '0.92rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '7px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'filter 0.2s ease'
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.filter = 'brightness(1.1)')}
+                  onMouseLeave={e => (e.currentTarget.style.filter = 'brightness(1)')}
+                >
+                  <MessageSquare size={17} />
+                  Order on WhatsApp
+                </button>
 
-                {/* Delivery Office Info */}
-                <div style={{
-                  background: 'white',
-                  borderRadius: '20px',
-                  padding: '16px',
-                  border: '1px solid rgba(0,0,0,0.05)',
-                  marginBottom: '28px'
-                }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                    <span style={{ fontSize: '0.8rem', opacity: 0.5, fontWeight: '700', textTransform: 'uppercase' }}>Delivery Location</span>
-                    <button 
-                      onClick={() => {
-                        setIsCheckoutOpen(false)
-                        onNavigate('account')
-                      }}
-                      style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--primary)' }}
-                    >
-                      Edit Info
-                    </button>
-                  </div>
-
-                  {deliveryProfile.name ? (
-                    <div style={{ fontSize: '0.9rem', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <div style={{ fontWeight: '700', color: 'var(--accent)' }}>{deliveryProfile.name}</div>
-                      <div style={{ opacity: 0.8 }}>{deliveryProfile.building}, Floor ${deliveryProfile.floor}, Room/Shop ${deliveryProfile.officeNumber}</div>
-                      {deliveryProfile.phone && <div style={{ opacity: 0.6 }}>Phone: {deliveryProfile.phone}</div>}
-                    </div>
-                  ) : (
-                    <div style={{ textAlign: 'center', padding: '10px 0' }}>
-                      <p style={{ fontSize: '0.85rem', opacity: 0.6, marginBottom: '8px' }}>No address profile found</p>
-                      <button 
-                        onClick={() => {
-                          setIsCheckoutOpen(false)
-                          onNavigate('account')
-                        }}
-                        style={{
-                          background: 'rgba(255, 94, 58, 0.1)',
-                          color: 'var(--primary)',
-                          padding: '6px 12px',
-                          borderRadius: '8px',
-                          fontSize: '0.8rem',
-                          fontWeight: '700'
-                        }}
-                      >
-                        Set Delivery Address Now
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                {/* Double checkout WhatsApp and Call buttons */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <button 
-                    onClick={handleWhatsAppOrder}
-                    disabled={!deliveryProfile.name}
-                    style={{
-                      background: '#2ecc71',
-                      color: 'white',
-                      width: '100%',
-                      padding: '16px',
-                      borderRadius: '16px',
-                      fontWeight: '800',
-                      fontSize: '1.05rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '10px',
-                      boxShadow: '0 6px 20px rgba(46, 204, 113, 0.25)',
-                      opacity: deliveryProfile.name ? 1 : 0.6,
-                      cursor: deliveryProfile.name ? 'pointer' : 'not-allowed',
-                      transition: 'var(--transition)'
-                    }}
-                  >
-                    <MessageSquare size={22} />
-                    Order via WhatsApp
-                  </button>
-
-                  <button 
-                    onClick={handleCallOrder}
-                    style={{
-                      background: 'var(--accent)',
-                      color: 'white',
-                      width: '100%',
-                      padding: '16px',
-                      borderRadius: '16px',
-                      fontWeight: '800',
-                      fontSize: '1.05rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '10px',
-                      boxShadow: '0 6px 20px rgba(0,0,0,0.15)',
-                      transition: 'var(--transition)'
-                    }}
-                  >
-                    <PhoneCall size={22} />
-                    Call +256702370441 to Order
-                  </button>
-                </div>
-              </motion.div>
-            </div>
+                <button
+                  onClick={handleCallOrder}
+                  style={{
+                    flex: 1,
+                    background: '#1e293b',
+                    color: 'white',
+                    padding: '15px 10px',
+                    fontWeight: '800',
+                    fontSize: '0.92rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '7px',
+                    border: 'none',
+                    borderLeft: '1px solid rgba(255,255,255,0.07)',
+                    cursor: 'pointer',
+                    transition: 'filter 0.2s ease'
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.filter = 'brightness(1.3)')}
+                  onMouseLeave={e => (e.currentTarget.style.filter = 'brightness(1)')}
+                >
+                  <PhoneCall size={17} />
+                  Call to Order
+                </button>
+              </div>
+            </motion.div>
           )}
         </AnimatePresence>
       </motion.div>
