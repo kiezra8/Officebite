@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, Plus, Minus, ShoppingBag, MessageSquare, PhoneCall, Search, Coffee, Utensils } from 'lucide-react'
+import { ArrowLeft, Plus, Minus, ShoppingBag, MessageSquare, PhoneCall } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { UserProfile } from './AccountPage'
 
