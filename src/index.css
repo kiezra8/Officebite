@@ -3,26 +3,26 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: dark;
-  color: #e2e8f0;
-  background-color: #0d1117;
+  color-scheme: light;
+  color: #1a1a1a;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Dark-first Design Tokens */
+  /* Light-first Design Tokens */
   --primary: #ff5e3a;
   --primary-dark: #e04d2b;
   --secondary: #ffb400;
-  --accent: #f1f5f9;           /* light text on dark bg */
-  --bg-dark: #0d1117;
-  --bg-card: rgba(255,255,255,0.06);
-  --bg-light: #161b22;
-  --white: #161b22;
-  --border: rgba(255,255,255,0.08);
-  --shadow: 0 10px 40px rgba(0,0,0,0.5);
+  --accent: #1f2937;           /* dark text on light bg */
+  --bg-dark: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-light: #ffffff;
+  --white: #ffffff;
+  --border: rgba(0,0,0,0.08);
+  --shadow: 0 10px 40px rgba(0,0,0,0.08);
   --radius: 20px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -37,12 +37,12 @@ html, body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
-  background-color: #0d1117;
+  background-color: #ffffff;
 }
 
-/* Force every page wrapper to be dark — kills leftover white gaps */
+/* Force every page wrapper to be light */
 #root, .app, main {
-  background: #0d1117;
+  background: #ffffff;
 }
 
 h1, h2, h3, h4 {
@@ -62,9 +62,9 @@ button {
 input, textarea {
   outline: none;
   transition: var(--transition);
-  color: #e2e8f0;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.1);
+  color: #1a1a1a;
+  background: rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.1);
 }
 
 input:focus, textarea:focus {
@@ -73,7 +73,7 @@ input:focus, textarea:focus {
 }
 
 input::placeholder, textarea::placeholder {
-  color: rgba(255,255,255,0.3);
+  color: rgba(0,0,0,0.4);
 }
 
 .container {
@@ -84,9 +84,9 @@ input::placeholder, textarea::placeholder {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+::-webkit-scrollbar-track { background: rgba(0,0,0,0.03); }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
 
 /* ── Responsive Nav ── */
 @media (max-width: 767px) {

@@ -8,25 +8,11 @@ interface CategoryCardsProps {
 export default function CategoryCards({ onSelect }: CategoryCardsProps) {
   return (
     /* Zero top padding — sits flush against the hero with no gap */
-    <section style={{ background: '#0d1117', padding: '0 0 40px' }}>
+    <section style={{ background: '#ffffff', padding: '0 0 40px' }}>
 
       {/* Section header */}
       <div style={{ textAlign: 'center', padding: '36px 20px 28px' }}>
-        <span style={{
-          background: 'rgba(255, 94, 58, 0.15)',
-          color: 'var(--primary)',
-          padding: '5px 16px',
-          borderRadius: '20px',
-          fontSize: '0.78rem',
-          fontWeight: '800',
-          letterSpacing: '1.5px',
-          textTransform: 'uppercase',
-          display: 'inline-block',
-          marginBottom: '10px'
-        }}>
-          Handcrafted Menus
-        </span>
-        <h2 style={{ fontSize: '2rem', fontWeight: '800', color: '#f1f5f9' }}>
+        <h2 style={{ fontSize: '2rem', fontWeight: '800', color: '#1a1a1a' }}>
           What are you having?
         </h2>
       </div>

@@ -135,8 +135,8 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
       minHeight: '100vh',
       padding: '0 0 180px',          /* huge bottom gap so last items and buttons aren't hidden behind the floating bars */
       position: 'relative',
-      background: '#0d1117',
-      backgroundImage: `linear-gradient(rgba(13,17,23,0.88), rgba(13,17,23,0.94)), url(${getBackgroundUrl()})`,
+      background: '#ffffff',
+      backgroundImage: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.95)), url(${getBackgroundUrl()})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundAttachment: 'fixed'
@@ -406,18 +406,18 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
             >
               {/* Top summary strip */}
               <div style={{
-                background: 'rgba(15, 23, 42, 0.97)',
+                background: 'rgba(255, 255, 255, 0.97)',
                 backdropFilter: 'blur(16px)',
                 padding: '11px 20px',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                borderBottom: '1px solid rgba(255,255,255,0.06)'
+                borderBottom: '1px solid rgba(0,0,0,0.06)'
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <ShoppingBag size={15} style={{ color: 'var(--primary)' }} />
                   <span style={{
-                    color: 'rgba(255,255,255,0.55)',
+                    color: 'rgba(0,0,0,0.55)',
                     fontSize: '0.75rem',
                     fontWeight: '700',
                     textTransform: 'uppercase',
@@ -426,14 +426,14 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
                     {Object.values(cart).reduce((s, q) => s + q, 0)} item{Object.values(cart).reduce((s, q) => s + q, 0) !== 1 ? 's' : ''} selected
                   </span>
                 </div>
-                <span style={{ color: 'white', fontWeight: '800', fontSize: '1.1rem' }}>
+                <span style={{ color: 'var(--accent)', fontWeight: '800', fontSize: '1.1rem' }}>
                   {total.toLocaleString()}
                   <span style={{ fontSize: '0.7rem', opacity: 0.6, marginLeft: '4px' }}>UGX</span>
                 </span>
               </div>
 
               {/* Two direct action buttons side by side */}
-              <div style={{ display: 'flex', padding: '8px', background: 'rgba(15, 23, 42, 0.97)', gap: '8px' }}>
+              <div style={{ display: 'flex', padding: '8px', background: 'rgba(255, 255, 255, 0.97)', gap: '8px' }}>
                 <button
                   onClick={handleWhatsAppOrder}
                   style={{

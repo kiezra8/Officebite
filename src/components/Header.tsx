@@ -14,10 +14,10 @@ export default function Header({ currentView, onNavigate }: HeaderProps) {
       position: 'sticky',
       top: 0,
       zIndex: 1000,
-      background: 'rgba(13, 17, 23, 0.85)',
+      background: 'rgba(255, 255, 255, 0.95)',
       backdropFilter: 'blur(16px)',
       padding: '14px 0',
-      borderBottom: '1px solid rgba(255,255,255,0.06)',
+      borderBottom: '1px solid rgba(0,0,0,0.06)',
       boxShadow: '0 4px 20px rgba(0,0,0,0.5)'
     }}>
       <div className="container" style={{
@@ -152,13 +152,14 @@ export default function Header({ currentView, onNavigate }: HeaderProps) {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',
-                    padding: '10px 14px',
+                    padding: '8px 16px',
                     borderRadius: '10px',
                     width: '100%',
                     textAlign: 'left',
                     fontSize: '0.9rem',
-                    fontWeight: currentView === 'lunch' ? '700' : '500',
-                    color: currentView === 'lunch' ? 'var(--primary)' : 'var(--accent)',
+                    color: '#1a1a1a',
+                    fontWeight: currentView === 'lunch' ? '800' : '600',
+                    opacity: currentView === 'lunch' ? 1 : 0.6,
                     background: currentView === 'lunch' ? 'rgba(255, 94, 58, 0.05)' : 'transparent',
                     transition: 'var(--transition)'
                   }}
