@@ -40,7 +40,7 @@ export default function Hero() {
 
   return (
     <section style={{
-      height: '500px',
+      height: '280px',
       position: 'relative',
       overflow: 'hidden',
       // Use the first slide's image as the always-visible base so there is
@@ -98,8 +98,8 @@ export default function Hero() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.45 }}
               style={{
-                fontSize: 'clamp(2rem, 5vw, 3.8rem)',
-                marginBottom: '14px',
+                fontSize: 'clamp(1.5rem, 5vw, 2.8rem)',
+                marginBottom: '10px',
                 fontWeight: '900',
                 lineHeight: 1.1,
                 color: 'white'

@@ -27,6 +27,11 @@ export const breakfastItems: MenuItem[] = [
   { id: '3', name: 'Samosas', price: 1000, unit: 'per pair', description: 'Beef or Vegetable options available.', image: 'https://i.pinimg.com/736x/94/6d/73/946d73dda845f94a3ba7337637f23764.jpg', category: 'breakfast' },
   { id: '4', name: 'Mandazi', price: 500, unit: 'each', description: 'Freshly fried fluffy mandazi.', image: 'https://i.pinimg.com/736x/4a/09/dc/4a09dcd1157d1fad7ecec7eb8aeb54d4.jpg', category: 'breakfast' },
   { id: '5', name: 'Rolex', price: 3500, description: '2 eggs, 1 chapati, tomatoes & cabbage.', image: 'https://i.pinimg.com/1200x/f9/7c/d2/f97cd249a967627bf90b981a8a8315fb.jpg', category: 'breakfast' },
+  { id: '6', name: 'Katogo (Offals)', price: 4500, description: 'Matooke cooked with rich offal sauce.', image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=800&q=80', category: 'breakfast' },
+  { id: '7', name: 'Kikomando', price: 2500, description: 'Sliced chapati mixed with fried beans.', image: 'https://images.unsplash.com/photo-1548943487-a2e4e43b4859?auto=format&fit=crop&w=800&q=80', category: 'breakfast' },
+  { id: '8', name: 'Plain Chapati', price: 1000, unit: 'each', description: 'Warm, soft and flaky flatbread.', image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80', category: 'breakfast' },
+  { id: '9', name: 'Millet Porridge', price: 2000, description: 'Hot and nutritious millet porridge.', image: 'https://images.unsplash.com/photo-1517673400267-0251440c45dc?auto=format&fit=crop&w=800&q=80', category: 'breakfast' },
+  { id: '10', name: 'Spanish Omelette', price: 3000, description: '2 eggs fried with onions and tomatoes.', image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80', category: 'breakfast' },
 ]
 
 export const lunchItems: MenuItem[] = [
@@ -35,6 +40,11 @@ export const lunchItems: MenuItem[] = [
   { id: 'l3', name: 'Stew with Chicken', price: 6000, description: 'Served with Matooke, Rice, or Posho.', image: 'https://i.pinimg.com/1200x/59/9e/b4/599eb43d743194b2d9987dce32db9a45.jpg', category: 'lunch' },
   { id: 'l4', name: 'Stew with G-nuts', price: 3500, description: 'Traditional Baganda style groundnut sauce.', image: 'https://i.pinimg.com/1200x/e7/27/94/e72794c5f1ced34ea2e47169490c3e88.jpg', category: 'lunch' },
   { id: 'l5', name: 'Pilau Beef', price: 5000, description: 'Spiced rice with tender beef chunks.', image: 'https://i.pinimg.com/736x/b8/ae/c0/b8aec06af74bd9b2b5317ca44b3f07c7.jpg', category: 'lunch' },
+  { id: 'l6', name: 'Chicken Luwombo', price: 10000, description: 'Slow-cooked chicken in banana leaves.', image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=800&q=80', category: 'lunch' },
+  { id: 'l7', name: 'Beef Luwombo', price: 8000, description: 'Rich beef stew steamed in banana leaves.', image: 'https://images.unsplash.com/photo-1544025162-8315ea07525f?auto=format&fit=crop&w=800&q=80', category: 'lunch' },
+  { id: 'l8', name: 'Fried Fish & Chips', price: 12000, description: 'Crispy whole tilapia served with fries.', image: 'https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?auto=format&fit=crop&w=800&q=80', category: 'lunch' },
+  { id: 'l9', name: 'Muchomo (Pork)', price: 5000, unit: 'per stick', description: 'Charcoal-roasted pork skewers.', image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', category: 'lunch' },
+  { id: 'l10', name: 'Rice and Peas', price: 3000, description: 'Steamed rice served with fresh peas.', image: 'https://images.unsplash.com/photo-1539755530862-00f623c00f52?auto=format&fit=crop&w=800&q=80', category: 'lunch' },
 ]
 
 const allItems = [...breakfastItems, ...lunchItems]
@@ -249,45 +259,13 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
           </div>
         </div>
 
-        {/* Category Header Hero Section */}
-        {type !== 'meals' && (
-          <div style={{
-            height: '200px',
-            borderRadius: '24px',
-            marginBottom: '40px',
-            overflow: 'hidden',
-            position: 'relative',
-            boxShadow: '0 15px 30px rgba(0,0,0,0.1)'
-          }}>
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              backgroundImage: `linear-gradient(to bottom, transparent, rgba(0,0,0,0.65)), url(${type === 'breakfast' ? 'https://i.pinimg.com/1200x/59/9e/b4/599eb43d743194b2d9987dce32db9a45.jpg' : 'https://i.pinimg.com/1200x/76/64/e9/7664e97464a98242d6b6f13792567e35.jpg'})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }} />
-            <div style={{
-              position: 'relative',
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              padding: '24px 30px',
-              color: 'white'
-            }}>
-              <span style={{ textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.8rem', fontWeight: '800', opacity: 0.9, display: 'flex', alignItems: 'center', gap: '6px' }}>
-                {type === 'breakfast' ? <Coffee size={14} /> : <Utensils size={14} />} Kampala's Finest {type}
-              </span>
-              <h1 style={{ fontSize: '2.5rem', fontWeight: '800', lineHeight: 1.1 }}>{type === 'breakfast' ? 'Morning Fuel' : 'Tasty Midday Feast'}</h1>
-            </div>
-          </div>
-        )}
+        {/* Category Header Hero Section Removed */}
 
         {/* Menu Cards Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: '24px',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
+          gap: '16px',
           marginBottom: '100px'
         }}>
           {filteredItems.map(item => (
@@ -334,18 +312,17 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
               </div>
 
               {/* Dark gradient overlay at the bottom — name, price & controls live here */}
-              <div style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                background: 'linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 55%, transparent 100%)',
-                padding: '40px 14px 14px'
-              }}>
-                {/* Name & Price row */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '8px', marginBottom: '10px' }}>
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.5) 55%, transparent 100%)',
+                  padding: '20px 10px 10px'
+                }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '4px', marginBottom: '10px', flexWrap: 'wrap' }}>
                   <h3 style={{
-                    fontSize: '1rem',
+                    fontSize: '0.9rem',
                     fontWeight: '700',
                     color: 'white',
                     lineHeight: '1.2',
@@ -353,7 +330,7 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
                   }}>
                     {item.name}
                     {item.unit && (
-                      <span style={{ display: 'block', fontSize: '0.7rem', fontWeight: '500', opacity: 0.8, marginTop: '2px' }}>({item.unit})</span>
+                      <span style={{ display: 'block', fontSize: '0.65rem', fontWeight: '500', opacity: 0.8, marginTop: '2px' }}>({item.unit})</span>
                     )}
                   </h3>
 
@@ -361,10 +338,10 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
                   <span style={{
                     fontWeight: '800',
                     color: 'white',
-                    fontSize: '0.85rem',
+                    fontSize: '0.75rem',
                     background: 'var(--primary)',
-                    padding: '3px 9px',
-                    borderRadius: '10px',
+                    padding: '2px 6px',
+                    borderRadius: '8px',
                     whiteSpace: 'nowrap',
                     boxShadow: '0 2px 8px rgba(255,94,58,0.4)',
                     flexShrink: 0
@@ -381,14 +358,16 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
                       style={{
                         background: 'linear-gradient(135deg, var(--primary), #ff8a65)',
                         color: 'white',
-                        padding: '8px 16px',
-                        borderRadius: '12px',
+                        padding: '6px 10px',
+                        borderRadius: '10px',
                         fontWeight: '800',
-                        fontSize: '0.85rem',
+                        fontSize: '0.75rem',
                         textTransform: 'uppercase',
                         letterSpacing: '0.5px',
                         display: 'flex',
                         alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
                         gap: '6px',
                         boxShadow: '0 4px 15px rgba(255,94,58,0.4)',
                         transition: 'transform 0.2s, filter 0.2s'
@@ -398,7 +377,7 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
                       onMouseDown={e => e.currentTarget.style.transform = 'scale(0.95)'}
                       onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
                     >
-                      <Plus size={16} /> Add to Order
+                      <Plus size={14} /> Add
                     </button>
                   ) : (
                     <div style={{
