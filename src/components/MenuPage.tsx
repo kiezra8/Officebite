@@ -212,26 +212,7 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
 
         {/* Page Title & Search Bar */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '20px', marginBottom: '40px' }}>
-          <div>
-            <h2 style={{ 
-              fontSize: '2.5rem', 
-              textTransform: 'capitalize', 
-              marginBottom: '6px',
-              color: 'var(--accent)',
-              textShadow: '0 2px 4px rgba(0,0,0,0.05)'
-            }}>
-              {type === 'meals' ? 'Our Delicious Menu' : `${type} selection`}
-            </h2>
-            <p style={{ 
-              fontSize: '1rem',
-              opacity: 0.8, 
-              fontWeight: '500',
-              color: 'var(--accent)'
-            }}>
-              Freshly prepared local dishes delivered directly to your building in Kampala.
-            </p>
-          </div>
-
+          {/* Page Title & Search Bar (Title Removed) */}
           {/* Dynamic Search Bar */}
           <div style={{
             position: 'relative',
