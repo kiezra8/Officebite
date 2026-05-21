@@ -50,7 +50,6 @@ export const lunchItems: MenuItem[] = [
 const allItems = [...breakfastItems, ...lunchItems]
 
 export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigate: _onNavigate }: MenuPageProps) {
-  const [searchTerm, setSearchTerm] = useState('')
   const [activeTab, setActiveTab] = useState<'all' | 'breakfast' | 'lunch'>(
     type === 'meals' ? 'all' : type
   )
@@ -76,13 +75,8 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
     }
   }, [isCheckoutOpen])
 
-  // Filter items based on activeTab and searchTerm
-  const filteredItems = allItems.filter(item => {
-    const matchesTab = activeTab === 'all' || item.category === activeTab
-    const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          (item.description && item.description.toLowerCase().includes(searchTerm.toLowerCase()))
-    return matchesTab && matchesSearch
-  })
+  // Filter items based on activeTab
+  const filteredItems = allItems.filter(item => activeTab === 'all' || item.category === activeTab)
 
   const total = Object.entries(cart).reduce((acc, [id, qty]) => {
     const item = allItems.find(i => i.id === id)
@@ -210,35 +204,7 @@ export default function MenuPage({ type, onBack, cart, updateQuantity, onNavigat
           )}
         </div>
 
-        {/* Page Title & Search Bar */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '20px', marginBottom: '40px' }}>
-          {/* Page Title & Search Bar (Title Removed) */}
-          {/* Dynamic Search Bar */}
-          <div style={{
-            position: 'relative',
-            width: '100%',
-            maxWidth: '300px'
-          }}>
-            <Search size={18} style={{ position: 'absolute', left: '14px', top: '13px', opacity: 0.4 }} />
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-              placeholder="Search dishes, drinks..."
-              style={{
-                width: '100%',
-                padding: '10px 16px 10px 42px',
-                borderRadius: '12px',
-                border: '1px solid rgba(0,0,0,0.08)',
-                background: 'rgba(255,255,255,0.9)',
-                fontFamily: 'inherit',
-                fontSize: '0.9rem',
-                outline: 'none',
-                boxShadow: '0 4px 10px rgba(0,0,0,0.03)'
-              }}
-            />
-          </div>
-        </div>
+        {/* Search Bar Removed */}
 
         {/* Category Header Hero Section Removed */}
 
